@@ -10,8 +10,12 @@
     "botkit",
     "lex"
   ],
+  "repository" : {
+    "type" : "git"
+      , "url" : "https://github.com/jonchurch/botkit-middleware-lex.git"
+  },
   "author": "Jon Church",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.48.0"
   }
