@@ -36,6 +36,14 @@ var lex = require('../lib/lex-ware.js')({
 module.exports = function(controller) {
   
   controller.middleware.receive.use(lex.receive)
+
+// Respond to all incoming text messages with the response from Lex
+  controller.on('message_received', function(bot, message) {
+    if (message.text) {
+        
+        bot.reply(message, message.lex.response)}   
+  })
+
   
 }
 ```
