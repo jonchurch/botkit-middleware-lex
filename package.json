@@ -11,5 +11,8 @@
     "lex"
   ],
   "author": "Jon Church",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.48.0"
+  }
 }
