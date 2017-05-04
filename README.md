@@ -22,6 +22,7 @@ Adds an object to incoming message objects that contains information returned fr
             message: 'STRING',
             dialogState: 'STRING',
             slotToElicit: 'STRING'
+        }
 ```
 
 
