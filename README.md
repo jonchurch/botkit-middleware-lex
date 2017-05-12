@@ -10,7 +10,7 @@ In order to use the aws-sdk LexRuntime, you will need to have your aws access ke
 
 ## Message Object
 
-Adds an object to incoming message objects that contains information returned from the PostText Lex api method. Learn more about the PostText method [here](http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html)
+Adds data returned from the Lex api PostText method to incoming message object. Learn more about the PostText method [here](http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html)
 
 
 ```
@@ -42,7 +42,8 @@ module.exports = function(controller) {
   controller.on('message_received', function(bot, message) {
     if (message.text) {
         
-        bot.reply(message, message.lex.response)}   
+        bot.reply(message, message.lex.message)
+        }   
   })
 
   
