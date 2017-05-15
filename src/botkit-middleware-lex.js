@@ -37,6 +37,17 @@ module.exports = function(config) {
             next()
         }
     }
+
+    function hears(tests, message) {
+        for (var i = 0; i < tests.length; i++) {
+            if (message.lex && message.lex.intent === tests[i]) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+    
     return {
         receive: receive
     }
