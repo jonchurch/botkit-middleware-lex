@@ -26,7 +26,7 @@ module.exports = function(config) {
                         slots: data.slots,
                         session: data.sessionAttributes,
                         response: data.message,
-                        dialogState: data.dialogueState,
+                        dialogState: data.dialogState,
                         slotToElicit: data.slotToElicit
                     }
                     next()
