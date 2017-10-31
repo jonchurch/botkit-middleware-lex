@@ -14,7 +14,7 @@ module.exports = function(config) {
             botName: config.botName,
             inputText: message.text,
             userId: message.user,
-            sessionAttributes: {} 
+            sessionAttributes: message.attributes
         };
         if (message.text) {
             var request = lex.postText(params, function(err, data) {
