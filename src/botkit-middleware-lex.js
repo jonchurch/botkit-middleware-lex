@@ -7,7 +7,6 @@ var lex = new LexRuntime({
 module.exports = function(config) {
 
     function receive(bot, message, next) {
-        console.log('Running receieve!')
         var params = {
             botAlias: config.botAlias,
             botName: config.botName,
