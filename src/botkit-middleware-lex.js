@@ -1,7 +1,6 @@
 var LexRuntime = require('aws-sdk').LexRuntime
-// At time of writing, us-east-1 is the only supported region for Lex
 var lex = new LexRuntime({
-    region: 'us-east-1'
+    region: 'eu-west-1'
 })
 
 
