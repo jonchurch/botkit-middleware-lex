@@ -1,12 +1,22 @@
 var LexRuntime = require('aws-sdk').LexRuntime
-var lex = new LexRuntime({
-    region: 'eu-west-1'
-})
-
 
 module.exports = function(config) {
-
+    
+    var lex = new LexRuntime({
+        region: config.region
+    })
+    
     function receive(bot, message, next) {
+    
+        if (!message.text) {
+          next();
+          return;
+        }
+
+        if (message.is_echo || message.type === 'self_message') {
+          next();
+          return;
+        } 
         var params = {
             botAlias: config.botAlias,
             botName: config.botName,
