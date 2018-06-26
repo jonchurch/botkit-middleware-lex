@@ -1,6 +1,10 @@
 var LexRuntime = require('aws-sdk').LexRuntime
 
 module.exports = function(config) {
+    if (!config || !config.region) {
+        // must provide config.region for Lex support
+        throw new Error("Must provide a config object with AWS region field to botkit lex middleware!")
+    }
     
     var lex = new LexRuntime({
         region: config.region
