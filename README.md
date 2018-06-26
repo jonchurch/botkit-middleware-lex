@@ -4,7 +4,7 @@ This middleware allows you to send user input to AWS Lex. This gives you access 
 
 ## Setup
 
-You will need an AWS Lex bot setup. Note the BotName and BotAlias you set when creating your Lex bot.
+You will need an AWS Lex bot setup. Note the BotName, BotAlias, and AWS region when creating your Lex bot.
 
 In order to use the aws-sdk LexRuntime, you will need to have your aws access keys [configured properly for nodejs](http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-started-nodejs.html)
 
@@ -31,7 +31,8 @@ Adds data returned from the Lex api PostText method to incoming message object. 
 ```
 var lex = require('../lib/lex-ware.js')({
   botName: 'BotkitLex',
-  botAlias: 'blex'
+  botAlias: 'blex',
+  region: 'us-east-1'
 })
 
 module.exports = function(controller) {
