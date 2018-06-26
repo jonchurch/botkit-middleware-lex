@@ -29,7 +29,7 @@ Adds data returned from the Lex api PostText method to incoming message object. 
 ## Example Usage
 
 ```
-var lex = require('../lib/lex-ware.js')({
+var lex = require('botkit-middleware-lex')({
   botName: 'BotkitLex',
   botAlias: 'blex',
   region: 'us-east-1'
