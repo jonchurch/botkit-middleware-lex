@@ -1,20 +1,22 @@
 {
   "name": "botkit-middleware-lex",
   "version": "1.0.0",
-  "description": "",
+  "description": "Middleware for using AWS Lex with Botkit",
   "main": "src/botkit-middleware-lex.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "botkit",
-    "lex"
+    "lex",
+    "chatbot"
   ],
-  "repository" : {
-    "type" : "git"
-      , "url" : "https://github.com/jonchurch/botkit-middleware-lex.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonchurch/botkit-middleware-lex.git"
   },
   "author": "Jon Church",
+  "email": "npm@jonchurch.com",
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.48.0"
