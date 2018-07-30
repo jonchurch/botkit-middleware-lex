@@ -26,7 +26,7 @@ Adds data returned from the Lex api PostText method to incoming message object. 
 ```
 
 
-## Example Usage
+## Example Usage Recieve Middleware
 
 ```
 var lex = require('botkit-middleware-lex')({
@@ -42,11 +42,29 @@ module.exports = function(controller) {
 // Respond to all incoming text messages with the response from Lex
   controller.on('message_received', function(bot, message) {
     if (message.text) {
-        
-        bot.reply(message, message.lex.message)
+            bot.reply(message, message.lex.message)
         }   
   })
+}
+```
+## Example Usage Hears Middleware
 
+```
+var lex = require('botkit-middleware-lex')({
+  botName: 'BotkitLex',
+  botAlias: 'blex',
+  region: 'us-east-1'
+})
+
+module.exports = function(controller) {
   
+  controller.middleware.receive.use(lex.receive)
+
+ // listen for a specific Lex Intent
+  controller.hears(['default_intent'], 'message_received', function(bot, message) {
+    if (message.text) {
+            bot.reply(message, message.lex.message)
+        }   
+  })
 }
 ```
