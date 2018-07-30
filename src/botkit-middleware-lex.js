@@ -1,26 +1,26 @@
-var LexRuntime = require('aws-sdk').LexRuntime
+var LexRuntime = require('aws-sdk').LexRuntime;
 
-module.exports = function(config) {
+module.exports = function (config) {
     if (!config || !config.region) {
         // must provide config.region for Lex support
         throw new Error("Must provide a config object with AWS region field to botkit lex middleware!")
     }
-    
+
     var lex = new LexRuntime({
         region: config.region
-    })
-    
+    });
+
     function receive(bot, message, next) {
-    
+
         if (!message.text) {
-          next();
-          return;
+            next();
+            return;
         }
 
         if (message.is_echo || message.type === 'self_message') {
-          next();
-          return;
-        } 
+            next();
+            return;
+        }
         var params = {
             botAlias: config.botAlias,
             botName: config.botName,
@@ -30,7 +30,7 @@ module.exports = function(config) {
             sessionAttributes: message.sessionAttributes
         };
         if (message.text) {
-            var request = lex.postText(params, function(err, data) {
+            lex.postText(params, function (err, data) {
                 if (err) {
                     next(err)
                 } else {
@@ -41,7 +41,7 @@ module.exports = function(config) {
                         response: data.message,
                         dialogState: data.dialogState,
                         slotToElicit: data.slotToElicit
-                    }
+                    };
                     next()
                 }
             })
@@ -59,9 +59,10 @@ module.exports = function(config) {
         }
 
         return false;
-    };
-    
-    return {
-        receive: receive
     }
-}
+
+    return {
+        receive: receive,
+        hears: hears
+    }
+};
