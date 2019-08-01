@@ -62,6 +62,7 @@ module.exports = function(config) {
     };
     
     return {
-        receive: receive
+        receive: receive,
+        hears: hears
     }
 }
