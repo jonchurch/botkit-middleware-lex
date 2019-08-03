@@ -19,6 +19,6 @@
   "email": "npm@jonchurch.com",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.48.0"
+    "aws-sdk": "^2.503.0"
   }
 }
