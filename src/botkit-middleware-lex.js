@@ -34,14 +34,25 @@ module.exports = function (config) {
                 if (err) {
                     next(err)
                 } else {
+                    var responseMessage = data.message;
+
+
                     message.lex = {
                         intent: data.intentName,
                         slots: data.slots,
                         session: data.sessionAttributes,
-                        response: data.message,
+                        messageFormat: data.messageFormat,
+                        response: responseMessage,
                         dialogState: data.dialogState,
-                        slotToElicit: data.slotToElicit
+                        slotToElicit: data.slotToElicit,
+                        messages: null,
                     };
+
+                    if (data.messageFormat === 'Composite') {
+                        var jsonObject = JSON.parse(responseMessage);
+                        message.lex.messages = jsonObject.messages;
+                    }
+                    
                     next()
                 }
             })
