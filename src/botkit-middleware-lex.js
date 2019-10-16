@@ -38,6 +38,7 @@ module.exports = function (config) {
                         intent: data.intentName,
                         slots: data.slots,
                         session: data.sessionAttributes,
+                        messageFormat: data.messageFormat,
                         response: data.message,
                         dialogState: data.dialogState,
                         slotToElicit: data.slotToElicit

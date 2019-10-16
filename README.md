@@ -18,17 +18,17 @@ Adds data returned from the Lex api PostText method to incoming message object. 
         message.lex = {
             intent: 'STRING',
             slots: 'OBJECT',
-            session: 'OBJECT' 
-            message: 'STRING',
+            session: 'OBJECT',
+            messageFormat: STRING, 
+            response: 'STRING',
             dialogState: 'STRING',
             slotToElicit: 'STRING'
         }
 ```
 
+## Example Usage Receive Middleware
 
-## Example Usage Recieve Middleware
-
-```
+```javascript
 var lex = require('botkit-middleware-lex')({
   botName: 'BotkitLex',
   botAlias: 'blex',
@@ -40,16 +40,17 @@ module.exports = function(controller) {
   controller.middleware.receive.use(lex.receive)
 
 // Respond to all incoming text messages with the response from Lex
-  controller.on('message_received', function(bot, message) {
+  controller.on('message', function(bot, message) {
     if (message.text) {
-            bot.reply(message, message.lex.message)
-        }   
+            bot.reply(message, message.lex.response)
+        }
   })
 }
 ```
+
 ## Example Usage Hears Middleware
 
-```
+```javascript
 var lex = require('botkit-middleware-lex')({
   botName: 'BotkitLex',
   botAlias: 'blex',
@@ -61,10 +62,44 @@ module.exports = function(controller) {
   controller.middleware.receive.use(lex.receive)
 
  // listen for a specific Lex Intent
-  controller.hears(['default_intent'], 'message_received', function(bot, message) {
+  controller.hears(['default_intent'], 'message', function(bot, message) {
     if (message.text) {
-            bot.reply(message, message.lex.message)
-        }   
+            bot.reply(message, message.lex.response)
+        }
   })
 }
+```
+
+## Using Cognito Identity Credentials
+
+Add the AWS SDK package with npm:
+
+```cmd
+npm i aws-sdk
+```
+
+Change bot.js to include AWS as follows:
+
+```javascript
+// Import Botkit's core features
+const { Botkit } = require('botkit');
+const { BotkitCMSHelper } = require('botkit-plugin-cms');
+
+// Import a platform-specific adapter for web.
+
+const { WebAdapter } = require('botbuilder-adapter-web');
+
+const { MongoDbStorage } = require('botbuilder-storage-mongodb');
+
+var AWS = require('aws-sdk');
+
+// Load process.env values from .env file
+require('dotenv').config();
+
+// Initialize the Amazon Cognito credentials provider
+AWS.config.region = 'us-east-1'; // Region
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'us-east-1:########-####-####-####-############',
+});
+
 ```
