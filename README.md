@@ -12,17 +12,17 @@ In order to use the aws-sdk LexRuntime, you will need to have your aws access ke
 
 Adds data returned from the Lex api PostText method to incoming message object. Learn more about the PostText method [here](http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html)
 
-
-```
+```javascript
 
         message.lex = {
             intent: 'STRING',
             slots: 'OBJECT',
             session: 'OBJECT',
-            messageFormat: STRING, 
+            messageFormat: 'STRING',
             response: 'STRING',
             dialogState: 'STRING',
-            slotToElicit: 'STRING'
+            slotToElicit: 'STRING',
+            messages: 'ARRAY(OBJECT)' // Support for Composite messages from Lex
         }
 ```
 
@@ -42,7 +42,16 @@ module.exports = function(controller) {
 // Respond to all incoming text messages with the response from Lex
   controller.on('message', function(bot, message) {
     if (message.text) {
-            bot.reply(message, message.lex.response)
+            if (message.lex.messageFormat === 'Composite') {
+
+                for (let index = 0; index < message.lex.messages.length; index++) {
+                    const msg = message.lex.messages[index];
+                    bot.reply(message, msg.value);
+                }
+            } else {
+
+                bot.reply(message, message.lex.response);
+            }
         }
   })
 }
@@ -64,7 +73,17 @@ module.exports = function(controller) {
  // listen for a specific Lex Intent
   controller.hears(['default_intent'], 'message', function(bot, message) {
     if (message.text) {
-            bot.reply(message, message.lex.response)
+            if (message.lex.messageFormat === 'Composite') {
+
+                for (let index = 0; index < message.lex.messages.length; index++) {
+                    const msg = message.lex.messages[index];
+                    bot.reply(message, msg.value);
+                }
+
+            } else {
+
+                bot.reply(message, message.lex.response);
+            }
         }
   })
 }
